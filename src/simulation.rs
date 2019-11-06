@@ -6,7 +6,7 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
     let delta : f64 = 0.34;
     let mut freq_list : Vec<f64> = vec![];
     // populate the freq_list
-    for (i,_) in (0..qubit_num).enumerate() {
+    for i in 0..qubit_num as usize {
         // generate gaussian noise
         let normal = Normal::new(frequency_config[i], sigma);
         let v = normal.sample(&mut rand::thread_rng());
@@ -17,8 +17,8 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
     let mut collision_counter = [0;7];
 
     for e in &chip.coupling_list {
-        let qj : usize = e[0].try_into().unwrap();
-        let qk : usize = e[1].try_into().unwrap();
+        let qj : usize = e[0] as usize;
+        let qk : usize = e[1] as usize;
         let edge_delta = (freq_list[qj] - freq_list[qk]).abs();
         if edge_delta < 0.017 {
             yield_success = 0;
@@ -38,8 +38,8 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
     }
 
     for e in &chip.grid_edge_list {
-        let qj : usize = e[0].try_into().unwrap();
-        let qk : usize = e[1].try_into().unwrap();
+        let qj : usize = e[0] as usize;
+        let qk : usize = e[1] as usize;
         if (freq_list[qj]-freq_list[qk]).abs() > delta {
             yield_success = 0;
             collision_number += 1;
@@ -48,8 +48,8 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
     }
 
     for e in &chip.via_edge_list {
-        let qi : usize = e[0].try_into().unwrap();
-        let qk : usize = e[2].try_into().unwrap();
+        let qi : usize = e[0] as usize;
+        let qk : usize = e[2] as usize;
         let edge_delta = (freq_list[qi]-freq_list[qk]).abs();
         if edge_delta < 0.017 {
             yield_success = 0;
@@ -62,11 +62,11 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
             collision_counter[5] += 1;
         }
     }
-    for (qj,_) in (0..qubit_num).enumerate(){
-        for (qiid,_) in (0..(chip.edge_list[qj]).len()).enumerate() {
-            let qi : usize = chip.edge_list[qj][qiid].try_into().unwrap();
-            for qkid in (qiid+1..(chip.edge_list[qj]).len()){
-                let qk : usize = chip.edge_list[qj][qkid].try_into().unwrap();
+    for qj in 0..qubit_num as usize {
+        for qiid in 0..(chip.edge_list[qj]).len() {
+            let qi : usize = chip.edge_list[qj][qiid] as usize;
+            for qkid in qiid+1..(chip.edge_list[qj]).len() {
+                let qk : usize = chip.edge_list[qj][qkid] as usize;
                 if ((2.0*freq_list[qj]-delta)-(freq_list[qk]+freq_list[qi])).abs() < 0.017 {
                     yield_success = 0;
                     collision_number += 1;
@@ -84,12 +84,12 @@ pub fn complete_yield_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, s
     //let mut yield_array = [0;number_of_trials];
     let mut yield_sum = 0;
     let mut collision_counter = [0;7];
-    for (trial,_) in (0..number_of_trials).enumerate() {
+    for trial in 0..number_of_trials {
         let (a,b,c) = one_simulation(qubit_num, &chip, sigma, &frequency_config);
         collision_per_trial[trial] = a;
         //yield_array[trial] = b;
         yield_sum += b;
-        for (i,_) in (0..7).enumerate() {
+        for i in 0..7 {
             collision_counter[i] += c[i];
         }
     }
