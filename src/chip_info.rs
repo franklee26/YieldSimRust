@@ -7,10 +7,10 @@ use std::convert::TryInto;
 #[allow(dead_code)]
 pub struct ChipInfo {
     qubit_num: i64,
-    coupling_list: Vec<Vec<i64>>,
-    grid_edge_list: Vec<Vec<i64>>,
-    via_edge_list: Vec<Vec<i64>>,
-    edge_list: Vec<Vec<i64>>,
+    pub coupling_list: Vec<Vec<i64>>,
+    pub grid_edge_list: Vec<Vec<i64>>,
+    pub via_edge_list: Vec<Vec<i64>>,
+    pub edge_list: Vec<Vec<i64>>,
     qubitgrid: Vec<Vec<i64>>,
     adj_mat: Vec<Vec<i64>>,
     crossbuslist: Vec<Vec<i64>>,
