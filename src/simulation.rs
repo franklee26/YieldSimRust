@@ -1,12 +1,11 @@
 use crate::chip_info;
-use std::convert::TryInto;
 use rand::distributions::{Normal, Distribution};
 
-pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64, frequency_config : &Vec<f64>) -> (i64, i64, [i64;7]) {
+pub fn one_simulation(chip : &chip_info::ChipInfo, sigma : f64, frequency_config : &Vec<f64>) -> (i64, i64, [i64;7]) {
     let delta : f64 = 0.34;
     let mut freq_list : Vec<f64> = vec![];
     // populate the freq_list
-    for i in 0..qubit_num as usize {
+    for i in 0..chip.qubit_num as usize {
         // generate gaussian noise
         let normal = Normal::new(frequency_config[i], sigma);
         let v = normal.sample(&mut rand::thread_rng());
@@ -62,7 +61,7 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
             collision_counter[5] += 1;
         }
     }
-    for qj in 0..qubit_num as usize {
+    for qj in 0..chip.qubit_num as usize {
         for qiid in 0..(chip.edge_list[qj]).len() {
             let qi : usize = chip.edge_list[qj][qiid] as usize;
             for qkid in qiid+1..(chip.edge_list[qj]).len() {
@@ -78,14 +77,14 @@ pub fn one_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64,
     (collision_number,yield_success,collision_counter)
 }
 
-pub fn complete_yield_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, sigma : f64, frequency_config : &Vec<f64>) -> (f64,f64) {
+pub fn complete_yield_simulation(chip : &chip_info::ChipInfo, sigma : f64, frequency_config : &Vec<f64>) -> (f64,f64) {
     const number_of_trials : usize = 10000;
     let mut collision_per_trial : [i64;number_of_trials] = [0;number_of_trials];
     //let mut yield_array = [0;number_of_trials];
     let mut yield_sum = 0;
     let mut collision_counter = [0;7];
     for trial in 0..number_of_trials {
-        let (a,b,c) = one_simulation(qubit_num, &chip, sigma, &frequency_config);
+        let (a,b,c) = one_simulation(&chip, sigma, &frequency_config);
         collision_per_trial[trial] = a;
         //yield_array[trial] = b;
         yield_sum += b;
@@ -95,6 +94,6 @@ pub fn complete_yield_simulation(qubit_num : i64, chip : &chip_info::ChipInfo, s
     }
     let collision_number : f64 = (collision_per_trial.iter().sum::<i64>() as f64)/(number_of_trials as f64);
     //let yield_rate : f64 = (yield_array.iter().sum::<i64>() as f64)/(number_of_trials as f64);
-    let yield_rate : f64 = (yield_sum as f64)/(number_of_trials as f64);
+    let yield_rate : f64 = (yield_sum as f64)*100.0/(number_of_trials as f64);
     (collision_number,yield_rate)
 }
