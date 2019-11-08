@@ -60,7 +60,10 @@ fn main() {
     choose the segmented approach:
 
     Annealer::standard(_chip, _frequency, _number_iterations, _threshold, _sigma);
-    Annealer::segmented(_chip, _frequency, _number_iterations, _threshold, _sigma);
+    Annealer::segmented(_chip, _frequency, _number_iterations, _threshold, _sigma, _segments);
+
+    NOTE: need to pass the segments (default is THREE segments)
     */
-    Annealer::segmented(&IBM17Q2B, &mut f, 280, 12.0, 0.01);
+    let segments : Vec<Vec<usize>> = vec![vec![0,1,2,3,4,5],vec![6,7,8,9,10,11],vec![12,13,14,15,16]];
+    Annealer::segmented(&IBM17Q2B, &mut f, 280, 12.0, 0.01, &segments);
 }
