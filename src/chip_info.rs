@@ -7,6 +7,7 @@ use std::convert::TryInto;
 #[allow(dead_code)]
 pub struct ChipInfo {
     pub qubit_num: i64,
+    pub sigma: f64,
     pub coupling_list: Vec<Vec<i64>>,
     pub grid_edge_list: Vec<Vec<i64>>,
     pub via_edge_list: Vec<Vec<i64>>,
@@ -20,7 +21,7 @@ pub struct ChipInfo {
 impl ChipInfo {
     pub fn new(a: i64, b: Vec<Vec<i64>>, c: Vec<Vec<i64>>,
         d: Vec<Vec<i64>>, e: Vec<Vec<i64>>, f: Vec<Vec<i64>>,
-        g:Vec<Vec<i64>>, h: Vec<Vec<i64>>) -> ChipInfo {
+        g:Vec<Vec<i64>>, h: Vec<Vec<i64>>, i: f64) -> ChipInfo {
             ChipInfo {
                 qubit_num: a,
                 coupling_list: b,
@@ -30,6 +31,7 @@ impl ChipInfo {
                 qubitgrid: f,
                 adj_mat: g,
                 crossbuslist: h,
+                sigma: i,
             }
     }
 
@@ -39,6 +41,7 @@ impl ChipInfo {
 
     pub fn print_details(&self) {
         println!("{:?}",self.qubit_num);
+        println!("{:?}",self.sigma);
         println!("{:?}",self.coupling_list);
         println!("{:?}",self.grid_edge_list);
         println!("{:?}",self.via_edge_list);
@@ -132,7 +135,6 @@ impl ChipInfo {
         let file_contents : String = populate::read_chip_file(filename);
         // keep track of the qubit id
         let mut qubit_id : i64 = 0;
-
         for lines in file_contents.lines() {
             // parse each line and split the lines into an easy vector
             // store this in line
@@ -141,6 +143,9 @@ impl ChipInfo {
             if line[0] == "#" {
                 // a comment in the chip file
                 continue;
+            }
+            if line[0] == "sigma" {
+                self.sigma = line[1].parse::<f64>().unwrap();
             }
             if line[0] == "qubit" {
                 // found a qubit declaration
