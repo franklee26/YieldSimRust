@@ -17,7 +17,7 @@ if __name__ == "__main__":
     iterationsSSA, yieldsSSA = readFromFile("100_trials.txt")
     iterationsBrute, yieldsBrute = readFromFile("100_trials_brute.txt")
     iterationsStandard, yieldsStandard = readFromFile(
-        "100_trials_standard.txt")
+        "100_trials_standard_2.txt")
     # I also want the mean
     meanIterationsSSA = sum(iterationsSSA)/len(iterationsSSA)
     meanYieldsSSA = sum(yieldsSSA)/len(yieldsSSA)
@@ -28,9 +28,11 @@ if __name__ == "__main__":
     meanIterationsStandard = sum(iterationsStandard)/len(iterationsStandard)
     meanYieldsStandard = sum(yieldsStandard)/len(yieldsStandard)
 
-    print(meanIterationsSSA, meanYieldsSSA)
-    print(meanIterationsBrute, meanYieldsBrute)
-    print(meanIterationsStandard, meanYieldsStandard)
+    print("SSA: {:.3f}, {:.3f}".format(meanIterationsSSA, meanYieldsSSA))
+    print("Brute force {:.3f} {:.3f}".format(
+        meanIterationsBrute, meanYieldsBrute))
+    print("Standard {:.3f} {:.3f}".format(
+        meanIterationsStandard, meanYieldsStandard))
 
     plt.figure(1)
 
