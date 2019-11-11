@@ -111,11 +111,11 @@ pub fn standard(
             // this is a bad move
             let mut prob: f64 = 1.0;
             if current_yield_rate - moved_yield_rate != 0.0 {
-                prob = (1.1 * temperature)
-                    / (1.4 + (1.2 * (current_yield_rate - moved_yield_rate)).exp());
+                prob = (1.4 * temperature)
+                    / (1.0 + (1.4 * (current_yield_rate - moved_yield_rate)).exp());
                 if moved_yield_rate == 0.0 {
                     // further punishment
-                    prob *= 0.2;
+                    prob *= 0.5;
                 }
             }
             //println!("Lower yield rate with diff {:.3} will move with {:.3} probability",current_yield_rate-moved_yield_rate,prob);

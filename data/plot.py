@@ -14,10 +14,10 @@ def readFromFile(filename):
 
 
 if __name__ == "__main__":
-    iterationsSSA, yieldsSSA = readFromFile("100_trials.txt")
-    iterationsBrute, yieldsBrute = readFromFile("100_trials_brute.txt")
+    iterationsSSA, yieldsSSA = readFromFile("300_17_trials_segmented.txt")
+    iterationsBrute, yieldsBrute = readFromFile("300_17_trials_brute.txt")
     iterationsStandard, yieldsStandard = readFromFile(
-        "100_trials_standard_2.txt")
+        "300_17_trials_standard.txt")
     # I also want the mean
     meanIterationsSSA = sum(iterationsSSA)/len(iterationsSSA)
     meanYieldsSSA = sum(yieldsSSA)/len(yieldsSSA)
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     plt.figure(1)
 
     plt.title(
-        "Yield rate performance comparison against different algorithms on IBM17Q2B chip")
+        "Yield rate comparison against different algorithms on IBM17Q2B chip (300 trials)")
     plt.xlabel("Iterations [#]")
     plt.ylabel("Yield rate [%]")
 
