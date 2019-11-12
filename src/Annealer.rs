@@ -31,7 +31,7 @@ fn return_moved_freq_segment(
     let mut range = rand::thread_rng();
     let mut moved_f = f.clone();
     for i in &(segments[segment_number as usize]) {
-        let to_move: f64 = Uniform::from(-0.2..0.2).sample(&mut range);
+        let to_move: f64 = Uniform::from(-0.25..0.25).sample(&mut range);
         moved_f[*i] += to_move;
         if moved_f[*i] > 5.34 {
             moved_f[*i] = 5.34;
@@ -111,8 +111,8 @@ pub fn standard(
             // this is a bad move
             let mut prob: f64 = 1.0;
             if current_yield_rate - moved_yield_rate != 0.0 {
-                prob = (1.4 * temperature)
-                    / (1.0 + (1.4 * (current_yield_rate - moved_yield_rate)).exp());
+                prob = (1.0 * temperature)
+                    / (1.0 + (8.0 * (current_yield_rate - moved_yield_rate)).exp());
                 if moved_yield_rate == 0.0 {
                     // further punishment
                     prob *= 0.5;
@@ -154,14 +154,17 @@ pub fn segmented(
             break;
         }
         // set the temperature
-        let mut temperature: f64 = -0.01 * i as f64;
+        let mut temperature: f64 = -0.025 * i as f64;
         temperature = temperature.exp();
         let f_with_move = return_moved_freq_segment(segment_number, f, segments);
         // recompute yield rate
         let (_, moved_yield_rate) =
             simulation::complete_yield_simulation(&chip, chip.sigma, &f_with_move);
 
-        //println!("{}/{}: Considering new {:.3}% against current {:.3}% at temperature {:.3}.", segment_number, i, moved_yield_rate, current_yield_rate, temperature);
+        // println!(
+        //     "{}/{}: Considering new {:.3}% against current {:.3}% at temperature {:.3}.",
+        //     segment_number, i, moved_yield_rate, current_yield_rate, temperature
+        // );
 
         if moved_yield_rate > current_yield_rate {
             // accept the move
@@ -172,14 +175,19 @@ pub fn segmented(
             // this is a bad move
             let mut prob: f64 = 1.0;
             if current_yield_rate - moved_yield_rate != 0.0 {
-                prob = (1.4 * temperature)
-                    / (1.0 + (1.4 * (current_yield_rate - moved_yield_rate)).exp());
+                // prob = (1.0 * temperature)
+                //     / (1.0 + (4.0 * (current_yield_rate - moved_yield_rate)).exp());
+                prob = temperature * (4.0 * (current_yield_rate - moved_yield_rate)).exp();
                 if moved_yield_rate == 0.0 {
                     // further punishment
-                    prob *= 0.5;
+                    prob *= 0.005;
                 }
             }
-            //println!("Lower yield rate with diff {:.3} will move with {:.3} probability",current_yield_rate-moved_yield_rate,prob);
+            // println!(
+            //     "Lower yield rate with diff {:.3} will move with {:.3} probability",
+            //     current_yield_rate - moved_yield_rate,
+            //     prob
+            // );
             // deciding to make the move
             if prob > Uniform::from(0.0..1.0).sample(&mut range) {
                 // make the move
@@ -188,7 +196,7 @@ pub fn segmented(
                 current_yield_rate = moved_yield_rate;
             }
         }
-        if i % 10 == 0 {
+        if i % 3 == 0 {
             // change the segment
             segment_number = Uniform::from(0..(segments.len() as i64)).sample(&mut range);
         }

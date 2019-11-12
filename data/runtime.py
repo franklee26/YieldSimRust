@@ -4,9 +4,9 @@ import numpy as np
 
 
 labels = ['6q', '10q', '12q', '17q', '25q']
-segmented = [22.7, 11.5, 10.4, 13.6, 17.3]
-brute = [22.7, 13.9, 15.1, 12.5, 16.7]
-standard = [34.8, 13.4, 9.5, 15.1, 16.6]
+segmented = [0.12, 0.48, 3.03, 4.0, 4.28]
+brute = [0.09, 0.08, 1.42, 4.21, 4.51]
+standard = [0.10, 1.13, 3.4, 3.5, 4.46]
 
 x = np.arange(len(labels))  # the label locations
 width = 0.25  # the width of the bars
@@ -17,7 +17,7 @@ rects2 = ax.bar(x + 1*width/3, brute, width, label='brute force')
 rects3 = ax.bar(x + 4*width/3, standard, width, label='standard')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel('Runtime [ms/iteration]')
+ax.set_ylabel('CPU Time [s]')
 ax.set_xlabel('Chip')
 ax.set_title(
     'Average Runtime of algorithms per simulation on different chips (Rust)')

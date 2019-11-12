@@ -1,61 +1,8 @@
 mod Annealer;
 mod chip_info;
+mod helper;
 mod populate;
 mod simulation;
-use rand::distributions::{Distribution, Uniform};
-use std::fs::File;
-use std::io::Write;
-use std::time::{Duration, Instant};
-
-/* Helpers ======================================== */
-
-// initial global hunter that will try to return a first non-zero yield rate
-fn global_hunter(chip: &chip_info::ChipInfo, number_of_calls: usize) -> Vec<f64> {
-    // for uniform guessing
-    let mut range = rand::thread_rng();
-    let uniform_range = Uniform::from(5.0..5.34);
-    // the answer
-    let mut f: Vec<f64> = (0..chip.qubit_num)
-        .map(|_| uniform_range.sample(&mut range))
-        .collect();
-    // make the first call
-    let (_, mut curr_yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
-    // now search for just 5 iterations
-    for _ in 0..number_of_calls {
-        //println!("Global hunter starter {:.3}%", curr_yield_rate);
-        let new_f: Vec<f64> = (0..chip.qubit_num)
-            .map(|_| uniform_range.sample(&mut range))
-            .collect();
-        let (_, new_yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &new_f);
-        if new_yield_rate > curr_yield_rate {
-            curr_yield_rate = new_yield_rate;
-            f = new_f;
-        }
-    }
-    // done, hopefully found a non-zero yield rate
-    f
-}
-
-// writes the data to the file
-fn write_to_file(data: &Vec<f64>, file_name: &str) {
-    // convert to string
-    let yields_string: Vec<String> = data.iter().map(|y| y.to_string()).collect();
-
-    let mut file = File::create("data/".to_owned() + file_name).expect("Unable to create file");
-    writeln!(file, "{}", yields_string.join("\n"));
-    println!("\nDone writing to file data/{}", file_name);
-}
-
-fn write_to_file_data(iter: &Vec<i64>, yields: &Vec<f64>, file_name: &str) {
-    let mut final_string: Vec<String> = vec![];
-    for i in 0..iter.len() {
-        final_string.push(iter[i].to_string() + " " + &yields[i].to_string());
-    }
-
-    let mut file = File::create("data/".to_owned() + file_name).expect("Unable to create file");
-    writeln!(file, "{}", final_string.join("\n"));
-    println!("\nDone writing to file data/{}", file_name);
-}
 
 /* ================================================ */
 
@@ -80,7 +27,7 @@ fn main() {
     Populate this chip object through the chip file. Note, do not add
     the chip/ directory
     */
-    IBM17Q2B.populate_from_file("25q_bus2_large.chip");
+    IBM17Q2B.populate_from_file("30q_bus2.chip");
     // checkup
     //IBM17Q2B.print_details();
 
@@ -107,33 +54,45 @@ fn main() {
     //let segments3 : Vec<Vec<usize>> = vec![vec![0,1,5,10,14],vec![4,8,7,9,12,13],vec![2,3,6,11,15,16]];
     //let segments4 : Vec<Vec<usize>> = vec![vec![0,2,8,10,13,16],vec![1,4,7,9,11,14],vec![3,5,6,12,15]];
     let temp_seg: Vec<Vec<usize>> = vec![
-        vec![0, 1, 4, 5, 6, 10, 22],
-        vec![2, 3, 8, 9, 23, 24],
-        vec![11, 14, 15, 16, 18],
-        vec![7, 12, 13, 17, 19, 20, 21],
+        vec![0, 1, 2, 5, 6, 7],
+        vec![3, 4, 8, 9, 12, 13],
+        vec![10, 11, 14, 15, 16, 17],
+        vec![21, 22, 23, 27, 28, 29],
+        vec![18, 19, 20, 24, 25, 26],
     ];
-    // here are the yield rates (last one is my final yield)
+
+    let bigger_seg: Vec<Vec<usize>> = vec![
+        vec![0, 1, 2, 5, 6, 7],
+        vec![3, 4, 9, 12, 13, 17],
+        vec![8, 10, 11, 14, 15, 16],
+        vec![18, 19, 20, 24, 25, 26],
+        vec![21, 22, 23, 27, 28, 29],
+    ];
+
+    let chain_seg: Vec<Vec<usize>> = vec![
+        vec![0, 1, 2, 3, 4, 28],
+        vec![5, 24, 7, 8, 9, 10],
+        vec![23, 12, 13, 21, 15, 16],
+        vec![17, 19, 20, 14, 22, 1],
+        vec![18, 6, 25, 26, 27, 29],
+    ];
 
     // I'm going to run 100 trials
-    //let mut trial_results : Vec<f64> = vec![];
     let mut iterations: Vec<i64> = vec![];
     let mut the_yields: Vec<f64> = vec![];
 
     let mut time_count: f64 = 0.0;
     let mut i_count: i64 = 0;
     for i in 0..100 {
-        let t0 = Instant::now();
-        let mut f: Vec<f64> = global_hunter(&IBM17Q2B, 5);
-        //let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.5, &temp_seg);
-        //let (iter_number, yields) = Annealer::brute_force(&IBM17Q2B, &mut f, 280, 0.5);
-        let (iter_number, yields) = Annealer::standard(&IBM17Q2B, &mut f, 280, 0.5);
-        //iterations.push(iter_number);
-        //the_yields.push(yields);
-        time_count += t0.elapsed().as_secs_f64();
-        i_count += iter_number;
+        let mut f: Vec<f64> = helper::global_hunter(&IBM17Q2B, 10);
+        let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.1, &temp_seg);
+        //let (iter_number, yields) = Annealer::brute_force(&IBM17Q2B, &mut f, 280, 0.1);
+        //let (iter_number, yields) = Annealer::standard(&IBM17Q2B, &mut f, 280, 95.0);
+        iterations.push(iter_number);
+        the_yields.push(yields);
+        //time_count += t0.elapsed().as_secs_f64();
         println!("{}: {} {}", i, iter_number, yields);
     }
-    println!("Time: {:.3}s for {} iterations", time_count, i_count);
     // write this data to file for analysis
-    //write_to_file_data(&iterations, &the_yields, "300_17_trials_standard.txt");
+    helper::write_to_file_data(&iterations, &the_yields, "100_30_trials_seg_final.txt");
 }
