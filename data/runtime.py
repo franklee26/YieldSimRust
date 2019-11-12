@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-labels = ['6q', '10q', '12q', '17q', '25q']
-segmented = [0.12, 0.48, 3.03, 4.0, 4.28]
-brute = [0.09, 0.08, 1.42, 4.21, 4.51]
-standard = [0.10, 1.13, 3.4, 3.5, 4.46]
+labels = ['6q', '10q', '12q', '17q', '25q', '30q']
+segmented = [0.12, 0.48, 3.03, 4.0, 4.28, 4.98]
+brute = [0.09, 0.08, 1.42, 4.21, 4.51, 5.02]
+standard = [0.10, 1.13, 3.4, 3.5, 4.46, 5.28]
 
 x = np.arange(len(labels))  # the label locations
 width = 0.25  # the width of the bars
@@ -20,7 +20,7 @@ rects3 = ax.bar(x + 4*width/3, standard, width, label='standard')
 ax.set_ylabel('CPU Time [s]')
 ax.set_xlabel('Chip')
 ax.set_title(
-    'Average Runtime of algorithms per simulation on different chips (Rust)')
+    'Average CPU time of algorithms per simulation on different chips (Rust)')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend()

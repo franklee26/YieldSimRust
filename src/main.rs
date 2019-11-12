@@ -4,8 +4,6 @@ mod helper;
 mod populate;
 mod simulation;
 
-/* ================================================ */
-
 fn main() {
     /*
     Build a chip object. Initialised parameters do not really matter,
@@ -44,15 +42,15 @@ fn main() {
     RETURNS: tuple (final_iter_number, final_yield_number)
     */
 
-    // here are my segments
-    //let segments : Vec<Vec<usize>> = vec![vec![0,1,2,3,4,5],vec![6,7,8,9,10,11],vec![12,13,14,15,16]];
-    // let segments2: Vec<Vec<usize>> = vec![
-    //     vec![0, 1, 4, 5, 8, 9],
-    //     vec![2, 3, 6, 7, 11, 15],
-    //     vec![10, 12, 13, 14, 16],
-    // ];
-    //let segments3 : Vec<Vec<usize>> = vec![vec![0,1,5,10,14],vec![4,8,7,9,12,13],vec![2,3,6,11,15,16]];
-    //let segments4 : Vec<Vec<usize>> = vec![vec![0,2,8,10,13,16],vec![1,4,7,9,11,14],vec![3,5,6,12,15]];
+    /* here are my segments
+    let segments : Vec<Vec<usize>> = vec![vec![0,1,2,3,4,5],vec![6,7,8,9,10,11],vec![12,13,14,15,16]];
+    let segments2: Vec<Vec<usize>> = vec![
+        vec![0, 1, 4, 5, 8, 9],
+        vec![2, 3, 6, 7, 11, 15],
+        vec![10, 12, 13, 14, 16],
+    ];
+    let segments3 : Vec<Vec<usize>> = vec![vec![0,1,5,10,14],vec![4,8,7,9,12,13],vec![2,3,6,11,15,16]];
+    let segments4 : Vec<Vec<usize>> = vec![vec![0,2,8,10,13,16],vec![1,4,7,9,11,14],vec![3,5,6,12,15]];
     let temp_seg: Vec<Vec<usize>> = vec![
         vec![0, 1, 2, 5, 6, 7],
         vec![3, 4, 8, 9, 12, 13],
@@ -76,6 +74,7 @@ fn main() {
         vec![17, 19, 20, 14, 22, 1],
         vec![18, 6, 25, 26, 27, 29],
     ];
+    */
 
     // I'm going to run 100 trials
     let mut iterations: Vec<i64> = vec![];
@@ -85,12 +84,11 @@ fn main() {
     let mut i_count: i64 = 0;
     for i in 0..100 {
         let mut f: Vec<f64> = helper::global_hunter(&IBM17Q2B, 10);
-        let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.1, &temp_seg);
+        //let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.1, &temp_seg);
         //let (iter_number, yields) = Annealer::brute_force(&IBM17Q2B, &mut f, 280, 0.1);
-        //let (iter_number, yields) = Annealer::standard(&IBM17Q2B, &mut f, 280, 95.0);
+        let (iter_number, yields) = Annealer::standard(&IBM17Q2B, &mut f, 280, 0.1);
         iterations.push(iter_number);
         the_yields.push(yields);
-        //time_count += t0.elapsed().as_secs_f64();
         println!("{}: {} {}", i, iter_number, yields);
     }
     // write this data to file for analysis
