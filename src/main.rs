@@ -80,8 +80,6 @@ fn main() {
     let mut iterations: Vec<i64> = vec![];
     let mut the_yields: Vec<f64> = vec![];
 
-    let mut time_count: f64 = 0.0;
-    let mut i_count: i64 = 0;
     for i in 0..100 {
         let mut f: Vec<f64> = helper::global_hunter(&IBM17Q2B, 10);
         //let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.1, &temp_seg);
