@@ -15,6 +15,16 @@ pub fn exp_fermi_dirac_custom(
     scaling_param * temperature / (1.0 + (delta_param * delta).exp())
 }
 
+// boltzmann distribution (defines temperature decay type) using custom parameters
+pub fn boltzmann_custom(
+    iteration_number: i64,
+    delta: f64,
+    delta_param: f64,
+    scaling_param: f64,
+) -> f64 {
+    scaling_param * (delta_param * delta / (iteration_number as f64 + 0.001)).exp()
+}
+
 // exponential temperature decay scaled with fermi-dirac using standard parameters
 pub fn exp_fermi_dirac_standard(iteration_number: i64, delta: f64) -> f64 {
     let temperature: f64 = (-0.025 * iteration_number as f64).exp();
