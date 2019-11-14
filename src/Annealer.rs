@@ -1,5 +1,6 @@
 use crate::chip_info;
 use crate::simulation;
+use crate::transition;
 use rand::distributions::{Distribution, Uniform};
 use rand::Rng;
 
@@ -154,8 +155,8 @@ pub fn segmented(
             break;
         }
         // set the temperature
-        let mut temperature: f64 = -0.025 * i as f64;
-        temperature = temperature.exp();
+        // let mut temperature: f64 = -0.025 * i as f64;
+        // temperature = temperature.exp();
         let f_with_move = return_moved_freq_segment(segment_number, f, segments);
         // recompute yield rate
         let (_, moved_yield_rate) =
@@ -177,7 +178,9 @@ pub fn segmented(
             if current_yield_rate - moved_yield_rate != 0.0 {
                 // prob = (1.0 * temperature)
                 //     / (1.0 + (4.0 * (current_yield_rate - moved_yield_rate)).exp());
-                prob = temperature * (4.0 * (current_yield_rate - moved_yield_rate)).exp();
+                //prob = temperature * (4.0 * (current_yield_rate - moved_yield_rate)).exp();
+                prob =
+                    transition::exp_fermi_dirac_standard(i, current_yield_rate - moved_yield_rate);
                 if moved_yield_rate == 0.0 {
                     // further punishment
                     prob *= 0.005;
