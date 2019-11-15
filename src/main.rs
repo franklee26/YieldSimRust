@@ -1,9 +1,15 @@
-mod Annealer;
-mod chip_info;
-mod helper;
-mod populate;
-mod simulation;
-mod transition;
+/// Annealing algorithms
+pub mod annealer;
+/// Chip implementations
+pub mod chip_info;
+/// Transition probability distributions
+pub mod distribution;
+/// Helping methods
+pub mod helper;
+/// Parsing .chip files
+pub mod populate;
+/// Yield rate simulation algorithm
+pub mod simulation;
 
 fn main() {
     /*
@@ -26,7 +32,7 @@ fn main() {
     Populate this chip object through the chip file. Note, do not add
     the chip/ directory
     */
-    IBM17Q2B.populate_from_file("17q_bus2.chip");
+    IBM17Q2B.populate_from_file("2q_bus2.chip");
     // checkup
     //IBM17Q2B.print_details();
 
@@ -35,9 +41,9 @@ fn main() {
     begin annealing. We can choose a standard annealing process or we can
     choose the segmented approach:
 
-    Annealer::brute_forcce(_chip, _frequency, _number_iterations, _threshold) -> (i64,f64);
-    Annealer::standard(_chip, _frequency, _number_iterations, _threshold) -> (i64,f64);
-    Annealer::segmented(_chip, _frequency, _number_iterations, _threshold, _segments) -> (i64,f64);
+    Annealer::anneal::random(_chip, _frequency, _number_iterations, _threshold) -> (i64,f64);
+    Annealer::anneal::standard(_chip, _frequency, _number_iterations, _threshold) -> (i64,f64);
+    Annealer::anneal::segmented(_chip, _frequency, _number_iterations, _threshold, _segments) -> (i64,f64);
 
     NOTE: need to pass the segments for the segmented annealer (default is THREE segments)
     RETURNS: tuple (final_iter_number, final_yield_number)
@@ -45,13 +51,11 @@ fn main() {
 
     /* here are my segments
     let segments : Vec<Vec<usize>> = vec![vec![0,1,2,3,4,5],vec![6,7,8,9,10,11],vec![12,13,14,15,16]];
-    */
     let segments2: Vec<Vec<usize>> = vec![
         vec![0, 1, 4, 5, 8, 9],
         vec![2, 3, 6, 7, 11, 15],
         vec![10, 12, 13, 14, 16],
     ];
-    /*
     let segments3 : Vec<Vec<usize>> = vec![vec![0,1,5,10,14],vec![4,8,7,9,12,13],vec![2,3,6,11,15,16]];
     let segments4 : Vec<Vec<usize>> = vec![vec![0,2,8,10,13,16],vec![1,4,7,9,11,14],vec![3,5,6,12,15]];
     let temp_seg: Vec<Vec<usize>> = vec![
@@ -79,19 +83,26 @@ fn main() {
     ];
     */
 
+    // let seg_25: Vec<Vec<usize>> = vec![
+    //     vec![2, 3, 8, 9, 23, 24, 22],
+    //     vec![0, 1, 4, 5, 6, 10, 15],
+    //     vec![11, 14, 16, 18, 21, 10],
+    //     vec![7, 12, 13, 17, 19, 20, 8, 9],
+    // ]
     // I'm going to run 100 trials
-    let mut iterations: Vec<i64> = vec![];
-    let mut the_yields: Vec<f64> = vec![];
+    // let mut iterations: Vec<i64> = vec![];
+    // let mut the_yields: Vec<f64> = vec![];
+    annealer::brute_force::brute_force_2(&IBM17Q2B);
 
     for i in 0..100 {
         let mut f: Vec<f64> = helper::global_hunter(&IBM17Q2B, 10);
-        let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 12.0, &segments2);
-        //let (iter_number, yields) = Annealer::brute_force(&IBM17Q2B, &mut f, 280, 0.1);
-        //let (iter_number, yields) = Annealer::standard(&IBM17Q2B, &mut f, 280, 0.1);
+        //let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.1, &seg_25);
+        //let (iter_number, yields) = Annealer::random(&IBM17Q2B, &mut f, 280, 0.1);
+        let (iter_number, yields) = Annealer::standard(&IBM17Q2B, &mut f, 280, 0.1);
         iterations.push(iter_number);
         the_yields.push(yields);
         println!("{}: {} {}", i, iter_number, yields);
     }
     // write this data to file for analysis
-    helper::write_to_file_data(&iterations, &the_yields, "100_30_trials_seg_final.txt");
+    //helper::write_to_file_data(&iterations, &the_yields, "100_trials_seg25_3.txt");
 }

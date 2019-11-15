@@ -1,6 +1,7 @@
+//! Novel annealing algorithms
 use crate::chip_info;
+use crate::distribution;
 use crate::simulation;
-use crate::transition;
 use rand::distributions::{Distribution, Uniform};
 use rand::Rng;
 
@@ -45,37 +46,22 @@ fn return_moved_freq_segment(
 
 /* ============================================================================== */
 
-pub fn brute_force(
-    chip: &chip_info::ChipInfo,
-    f: &mut Vec<f64>,
-    number_of_passes: i64,
-    threshold: f64,
-) -> (i64, f64) {
-    let (_, mut current_yield_rate) = simulation::complete_yield_simulation(&chip, chip.sigma, &f);
-    // for uniform guessing
-    let mut range = rand::thread_rng();
-    let mut iteration_number: i64 = 0;
-    let uniform_range = Uniform::from(5.0..5.34);
-    for i in 0..number_of_passes {
-        // generate new guess
-        //println!("{:.3}", current_yield_rate);
-        iteration_number = i;
-        if current_yield_rate > threshold {
-            break;
-        }
-        let mut new_f: Vec<f64> = (0..chip.qubit_num)
-            .map(|_| uniform_range.sample(&mut range))
-            .collect();
-        let (_, mut temp_yield_rate) =
-            simulation::complete_yield_simulation(&chip, chip.sigma, &new_f);
-        if temp_yield_rate > current_yield_rate {
-            current_yield_rate = temp_yield_rate;
-        }
-    }
-    (iteration_number, current_yield_rate)
-}
-
-// standard annealer
+/// Standard simulated annealing algorithm
+///
+/// # Arguments
+///
+/// * `chip` - A `chip_info::ChipInfo` reference (ideally populated)
+/// * `f` - A mutuable reference to an initial frequency configuration vector
+/// * `number_of_passes` - The max number of iterations that will be run
+/// * `threshold` - The threshold yield_rate that can cause an early break in the iteration
+///
+///  # Returns
+///
+/// `(i64, f64)` - A tuple where the first element is the number of iterations taken and the secnod element is the final yield-rate
+///
+/// # Notes
+///
+/// * Method uses methods from the `distribution` module. Change distribution and the parameters within the src code
 pub fn standard(
     chip: &chip_info::ChipInfo,
     f: &mut Vec<f64>,
@@ -94,8 +80,8 @@ pub fn standard(
             break;
         }
         // set the temperature
-        let mut temperature: f64 = -0.01 * i as f64;
-        temperature = temperature.exp();
+        // let mut temperature: f64 = -0.01 * i as f64;
+        // temperature = temperature.exp();
         let f_with_move = return_moved_freq(f);
         // recompute yield rate
         let (_, moved_yield_rate) =
@@ -112,11 +98,11 @@ pub fn standard(
             // this is a bad move
             let mut prob: f64 = 1.0;
             if current_yield_rate - moved_yield_rate != 0.0 {
-                prob = (1.0 * temperature)
-                    / (1.0 + (8.0 * (current_yield_rate - moved_yield_rate)).exp());
+                prob =
+                    distribution::exp_fermi_dirac_harsh(i, current_yield_rate - moved_yield_rate);
                 if moved_yield_rate == 0.0 {
                     // further punishment
-                    prob *= 0.5;
+                    prob *= 0.005;
                 }
             }
             //println!("Lower yield rate with diff {:.3} will move with {:.3} probability",current_yield_rate-moved_yield_rate,prob);
@@ -179,8 +165,14 @@ pub fn segmented(
                 // prob = (1.0 * temperature)
                 //     / (1.0 + (4.0 * (current_yield_rate - moved_yield_rate)).exp());
                 //prob = temperature * (4.0 * (current_yield_rate - moved_yield_rate)).exp();
-                prob =
-                    transition::exp_fermi_dirac_standard(i, current_yield_rate - moved_yield_rate);
+                //prob = transition::exp_fermi_dirac_harsh(i, current_yield_rate - moved_yield_rate);
+                prob = distribution::exp_fermi_dirac_custom(
+                    i,
+                    current_yield_rate - moved_yield_rate,
+                    0.029,
+                    3.9,
+                    1.0,
+                );
                 if moved_yield_rate == 0.0 {
                     // further punishment
                     prob *= 0.005;
@@ -199,9 +191,39 @@ pub fn segmented(
                 current_yield_rate = moved_yield_rate;
             }
         }
-        if i % 3 == 0 {
+        if i % 5 == 0 {
             // change the segment
             segment_number = Uniform::from(0..(segments.len() as i64)).sample(&mut range);
+        }
+    }
+    (iteration_number, current_yield_rate)
+}
+
+pub fn random(
+    chip: &chip_info::ChipInfo,
+    f: &mut Vec<f64>,
+    number_of_passes: i64,
+    threshold: f64,
+) -> (i64, f64) {
+    let (_, mut current_yield_rate) = simulation::complete_yield_simulation(&chip, chip.sigma, &f);
+    // for uniform guessing
+    let mut range = rand::thread_rng();
+    let mut iteration_number: i64 = 0;
+    let uniform_range = Uniform::from(5.0..5.34);
+    for i in 0..number_of_passes {
+        // generate new guess
+        //println!("{:.3}", current_yield_rate);
+        iteration_number = i;
+        if current_yield_rate > threshold {
+            break;
+        }
+        let mut new_f: Vec<f64> = (0..chip.qubit_num)
+            .map(|_| uniform_range.sample(&mut range))
+            .collect();
+        let (_, mut temp_yield_rate) =
+            simulation::complete_yield_simulation(&chip, chip.sigma, &new_f);
+        if temp_yield_rate > current_yield_rate {
+            current_yield_rate = temp_yield_rate;
         }
     }
     (iteration_number, current_yield_rate)

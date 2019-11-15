@@ -14,10 +14,10 @@ def readFromFile(filename):
 
 
 if __name__ == "__main__":
-    iterationsSEG1, yieldsSEG1 = readFromFile("100_trials_seg25_1.txt")
-    iterationsSEG2, yieldsSEG2 = readFromFile("100_trials_seg25_brute.txt")
+    iterationsSEG1, yieldsSEG1 = readFromFile("100_trials_seg25_3.txt")
+    iterationsSEG2, yieldsSEG2 = readFromFile("100_trials_seg25_brute_2.txt")
     iterationsSEG3, yieldsSEG3 = readFromFile(
-        "100_trials_25_normal.txt")
+        "100_trials_25_normal_2.txt")
     # iterationsSEG4, yieldsSEG4 = readFromFile(
     #     "300_trials_segment4.txt")
     # I also want the mean
