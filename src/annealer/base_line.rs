@@ -17,7 +17,7 @@ pub fn one_6q_trial(chip: &chip_info::ChipInfo) -> f64 {
 
 /// IBM's frequency selection for a 10 qubit chip
 pub fn one_10q_trial(chip: &chip_info::ChipInfo) -> f64 {
-    if chip.qubit_num != 6 {
+    if chip.qubit_num != 10 {
         println!("one_10q_trial expected 10q chip");
         process::exit(1);
     }

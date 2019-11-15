@@ -4,7 +4,20 @@ use rand::distributions::{Distribution, Uniform};
 use std::fs::File;
 use std::io::Write;
 
-// initial global hunter that will try to return a first non-zero yield rate
+/// Initial random search helper
+///
+/// # Arguments
+///
+/// * `chip` - A `chip_info::ChipInfo` reference (ideally populated)
+/// * `number_of_calls` - Number of random guessing iterations (ideally <= 10)
+///
+///  # Returns
+///
+/// `Vec<f64>` - A vector of frequencies; a frequency-selection
+///
+/// # Notes
+///
+/// * Use `global_hunter` to get a random initial frequency array by using 0 `number_of_calls`
 pub fn global_hunter(chip: &chip_info::ChipInfo, number_of_calls: usize) -> Vec<f64> {
     // for uniform guessing
     let mut range = rand::thread_rng();

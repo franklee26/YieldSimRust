@@ -32,7 +32,7 @@ fn main() {
     Populate this chip object through the chip file. Note, do not add
     the chip/ directory
     */
-    IBM17Q2B.populate_from_file("2q_bus2.chip");
+    IBM17Q2B.populate_from_file("10q_chain.chip");
     // checkup
     //IBM17Q2B.print_details();
 
@@ -90,19 +90,21 @@ fn main() {
     //     vec![7, 12, 13, 17, 19, 20, 8, 9],
     // ]
     // I'm going to run 100 trials
-    let mut iterations: Vec<i64> = vec![];
-    let mut the_yields: Vec<f64> = vec![];
-    annealer::brute_force::brute_force_2(&IBM17Q2B);
-
+    // let mut iterations: Vec<i64> = vec![];
+    // let mut the_yields: Vec<f64> = vec![];
+    let mut yield_sum: f64 = 0.0;
     for i in 0..100 {
-        let mut f: Vec<f64> = helper::global_hunter(&IBM17Q2B, 10);
+        //let mut f: Vec<f64> = helper::global_hunter(&IBM17Q2B, 10);
         //let (iter_number, yields) = Annealer::segmented(&IBM17Q2B, &mut f, 280, 0.1, &seg_25);
         //let (iter_number, yields) = Annealer::random(&IBM17Q2B, &mut f, 280, 0.1);
-        let (iter_number, yields) = annealer::anneal::standard(&IBM17Q2B, &mut f, 280, 0.1);
-        iterations.push(iter_number);
-        the_yields.push(yields);
-        println!("{}: {} {}", i, iter_number, yields);
+        //let (iter_number, yields) = annealer::anneal::standard(&IBM17Q2B, &mut f, 280, 0.1);
+        // iterations.push(iter_number);
+        // the_yields.push(yields);
+        //println!("{}: {} {}", i, iter_number, yields);
+        let freq = annealer::base_line::one_10q_trial(&IBM17Q2B);
+        yield_sum += freq;
     }
+    println!("{:.3} average.", yield_sum / 100.0)
     // write this data to file for analysis
     //helper::write_to_file_data(&iterations, &the_yields, "100_trials_seg25_3.txt");
 }
