@@ -118,7 +118,23 @@ pub fn standard(
     (iteration_number, current_yield_rate)
 }
 
-// segmented annealer
+/// Segmented simulated annealing (SSA) algorithm
+///
+/// # Arguments
+///
+/// * `chip` - A `chip_info::ChipInfo` reference (ideally populated)
+/// * `f` - A mutuable reference to an initial frequency configuration vector
+/// * `number_of_passes` - The max number of iterations that will be run
+/// * `threshold` - The threshold yield_rate that can cause an early break in the iteration
+/// * `segments` - A vector of `usize` vectors, where each vector defines the indices for each segment
+///
+///  # Returns
+///
+/// `(i64, f64)` - A tuple where the first element is the number of iterations taken and the secnod element is the final yield-rate
+///
+/// # Notes
+///
+/// * Method uses methods from the `distribution` module. Change distribution and the parameters within the src code
 pub fn segmented(
     chip: &chip_info::ChipInfo,
     f: &mut Vec<f64>,
@@ -199,6 +215,18 @@ pub fn segmented(
     (iteration_number, current_yield_rate)
 }
 
+/// Random frequency-selection algorithm
+///
+/// # Arguments
+///
+/// * `chip` - A `chip_info::ChipInfo` reference (ideally populated)
+/// * `f` - A mutuable reference to an initial frequency configuration vector
+/// * `number_of_passes` - The max number of iterations that will be run
+/// * `threshold` - The threshold yield_rate that can cause an early break in the iteration
+///
+///  # Returns
+///
+/// `(i64, f64)` - A tuple where the first element is the number of iterations taken and the secnod element is the final yield-rate
 pub fn random(
     chip: &chip_info::ChipInfo,
     f: &mut Vec<f64>,
