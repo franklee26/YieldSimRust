@@ -17,11 +17,11 @@ for node in G.nodes():
                 colorMap.append('red')
         else:
                 colorMap.append('cyan')
-pos = nx.spring_layout(G, iterations=100)
-nx.draw(G, pos=pos, with_labels=True, node_size=475,
+nx.draw(G, pos={5:(0,0),2:(1,0),4:(0,1),1:(1,1),3:(0,2),0:(1,2)}, with_labels=True, node_size=475,
         width=2, edge_color="black", node_color=colorMap)
 ax1.set_title("6q")
 
+# 10
 ax2 = fig.add_subplot(232)
 theGraph = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5),
             (5, 6), (6, 7), (7, 8), (8, 9)]
@@ -39,6 +39,7 @@ nx.draw(G, pos=pos, with_labels=True, node_size=475,
         width=2, edge_color="black", node_color=colorMap)
 ax2.set_title("10q")
 
+# 12
 ax3 = fig.add_subplot(233)
 theGraph = [(0, 1), (1, 2), (3, 4), (4, 5), (5, 6), (7, 8), (9, 10),
             (10, 11), (0, 4), (1, 5), (2, 6), (4, 7), (5, 8), (7, 10), (8, 11)]
@@ -51,11 +52,12 @@ for node in G.nodes():
                 colorMap.append('red')
         else:
                 colorMap.append('cyan')
-pos = nx.spring_layout(G, iterations=100)
+pos = {9:(0,0),10:(1,0),7:(2,0),4:(3,0),0:(4,0),3:(3,1),11:(1,-1),8:(2,-1),5:(3,-1),1:(4,-1),6:(3,-2),2:(4,-2)}
 nx.draw(G, pos=pos, with_labels=True, node_size=475,
         width=2, edge_color="black", node_color=colorMap)
 ax3.set_title("12q")
 
+# 17
 ax4 = fig.add_subplot(234)
 theGraph = [(2, 6), (3, 7), (7, 11), (11, 15), (0, 4), (4, 8), (8, 12), (12, 16), (1, 5), (5, 9), (9, 13), (10, 14),
             (2, 3), (6, 7), (3, 4), (7, 8), (11, 12), (15, 16), (0, 1), (4, 5), (8, 9), (12, 13), (9, 10), (13, 14)]

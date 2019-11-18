@@ -3,6 +3,12 @@ Define the various transition probability distributions here.
 Naming format: [TEMPERATURE DECAY TYPE]_[DISTRIBUTION TYPE]_[PARAM LENIENCY]
 */
 
+enum distribution {
+    boltzmann,
+    fermi_dirac,
+    random,
+}
+
 // boltzmann distribution (defines temperature decay type) using custom parameters
 pub fn boltzmann_custom(
     iteration_number: i64,

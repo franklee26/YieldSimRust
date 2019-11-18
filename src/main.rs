@@ -32,7 +32,7 @@ fn main() {
     Populate this chip object through the chip file. Note, do not add
     the chip/ directory
     */
-    IBM17Q2B.populate_from_file("10q_chain.chip");
+    IBM17Q2B.populate_from_file("30q_bus2.chip");
     // checkup
     //IBM17Q2B.print_details();
 
@@ -101,8 +101,9 @@ fn main() {
         // iterations.push(iter_number);
         // the_yields.push(yields);
         //println!("{}: {} {}", i, iter_number, yields);
-        let freq = annealer::base_line::one_10q_trial(&IBM17Q2B);
-        yield_sum += freq;
+        let yield_temp = annealer::base_line::one_30q_trial(&IBM17Q2B);
+        yield_sum += yield_temp;
+        //println!("{}", yield_temp);
     }
     println!("{:.3} average.", yield_sum / 100.0)
     // write this data to file for analysis

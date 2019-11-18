@@ -33,19 +33,14 @@ if __name__ == "__main__":
                 s=250, c="blue", marker="x")
     ax1.axvline(x=meanIterationsSEG1, linestyle="--", c="blue")
     ax1.axhline(y=meanYieldsSEG1, linestyle="--", c="blue")
-    ax1.scatter(iterationsSEG2, yieldsSEG2, label="Brute", c="red")
-    ax1.scatter(meanIterationsSEG2, meanYieldsSEG2,
-                s=250, c="red", marker="x")
-    ax1.axvline(x=meanIterationsSEG2, linestyle="--", c="red")
-    ax1.axhline(y=meanYieldsSEG2, linestyle="--", c="red")
 
     ax1.scatter(iterationsSEG3, yieldsSEG3,
-                label="Standard", c="green")
+                label="SA", c="green")
     ax1.scatter(meanIterationsSEG3, meanYieldsSEG3,
                 s=250, c="green", marker="x")
     ax1.axvline(x=meanIterationsSEG3, linestyle="--", c="green")
     ax1.axhline(y=meanYieldsSEG3, linestyle="--", c="green")
-    ax1.set_title("7q chip")
+    ax1.set_title("6q chip")
     ax1.set_xlabel("Iterations [#]")
     ax1.set_ylabel("Yield rate [%]")
 
@@ -66,14 +61,9 @@ if __name__ == "__main__":
                 s=250, c="blue", marker="x")
     ax2.axvline(x=meani10, linestyle="--", c="blue")
     ax2.axhline(y=meany10, linestyle="--", c="blue")
-    ax2.scatter(i10_brute, y10_brute, label="Brute", c="red")
-    ax2.scatter(meani10_brute, meany10_brute,
-                s=250, c="red", marker="x")
-    ax2.axvline(x=meani10_brute, linestyle="--", c="red")
-    ax2.axhline(y=meany10_brute, linestyle="--", c="red")
 
     ax2.scatter(i10_stan, y10_stan,
-                label="Standard", c="green")
+                label="SA", c="green")
     ax2.scatter(meani10_stan, meany10_stan,
                 s=250, c="green", marker="x")
     ax2.axvline(x=meani10_stan, linestyle="--", c="green")
@@ -99,14 +89,9 @@ if __name__ == "__main__":
                 s=250, c="blue", marker="x")
     ax3.axvline(x=meani10, linestyle="--", c="blue")
     ax3.axhline(y=meany10, linestyle="--", c="blue")
-    ax3.scatter(i10_brute, y10_brute, label="Brute", c="red")
-    ax3.scatter(meani10_brute, meany10_brute,
-                s=250, c="red", marker="x")
-    ax3.axvline(x=meani10_brute, linestyle="--", c="red")
-    ax3.axhline(y=meany10_brute, linestyle="--", c="red")
 
     ax3.scatter(i10_stan, y10_stan,
-                label="Standard", c="green")
+                label="SA", c="green")
     ax3.scatter(meani10_stan, meany10_stan,
                 s=250, c="green", marker="x")
     ax3.axvline(x=meani10_stan, linestyle="--", c="green")
@@ -132,14 +117,9 @@ if __name__ == "__main__":
                 s=250, c="blue", marker="x")
     ax4.axvline(x=meani10, linestyle="--", c="blue")
     ax4.axhline(y=meany10, linestyle="--", c="blue")
-    ax4.scatter(i10_brute, y10_brute, label="Brute", c="red")
-    ax4.scatter(meani10_brute, meany10_brute,
-                s=250, c="red", marker="x")
-    ax4.axvline(x=meani10_brute, linestyle="--", c="red")
-    ax4.axhline(y=meany10_brute, linestyle="--", c="red")
 
     ax4.scatter(i10_stan, y10_stan,
-                label="Standard", c="green")
+                label="SA", c="green")
     ax4.scatter(meani10_stan, meany10_stan,
                 s=250, c="green", marker="x")
     ax4.axvline(x=meani10_stan, linestyle="--", c="green")
@@ -165,14 +145,9 @@ if __name__ == "__main__":
                 s=250, c="blue", marker="x")
     ax5.axvline(x=meani10, linestyle="--", c="blue")
     ax5.axhline(y=meany10, linestyle="--", c="blue")
-    ax5.scatter(i10_brute, y10_brute, label="Brute", c="red")
-    ax5.scatter(meani10_brute, meany10_brute,
-                s=250, c="red", marker="x")
-    ax5.axvline(x=meani10_brute, linestyle="--", c="red")
-    ax5.axhline(y=meany10_brute, linestyle="--", c="red")
 
     ax5.scatter(i10_stan, y10_stan,
-                label="Standard", c="green")
+                label="SA", c="green")
     ax5.scatter(meani10_stan, meany10_stan,
                 s=250, c="green", marker="x")
     ax5.axvline(x=meani10_stan, linestyle="--", c="green")
@@ -198,14 +173,9 @@ if __name__ == "__main__":
                 s=250, c="blue", marker="x")
     ax6.axvline(x=meani10, linestyle="--", c="blue")
     ax6.axhline(y=meany10, linestyle="--", c="blue")
-    ax6.scatter(i10_brute, y10_brute, label="Brute", c="red")
-    ax6.scatter(meani10_brute, meany10_brute,
-                s=250, c="red", marker="x")
-    ax6.axvline(x=meani10_brute, linestyle="--", c="red")
-    ax6.axhline(y=meany10_brute, linestyle="--", c="red")
 
     ax6.scatter(i10_stan, y10_stan,
-                label="Standard", c="green")
+                label="SA", c="green")
     ax6.scatter(meani10_stan, meany10_stan,
                 s=250, c="green", marker="x")
     ax6.axvline(x=meani10_stan, linestyle="--", c="green")

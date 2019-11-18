@@ -10,7 +10,7 @@ pub fn one_6q_trial(chip: &chip_info::ChipInfo) -> f64 {
         process::exit(1);
     }
     // pre defined frequency allocation
-    let mut f: Vec<f64> = vec![5.00, 5.07, 5.13, 5.20, 5.27, 5.00];
+    let mut f: Vec<f64> = vec![5.00, 5.07, 5.14, 5.21, 5.28, 5.34];
     let (_, yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
     yield_rate
 }
@@ -22,7 +22,7 @@ pub fn one_10q_trial(chip: &chip_info::ChipInfo) -> f64 {
         process::exit(1);
     }
     // pre defined frequency allocation
-    let mut f: Vec<f64> = vec![5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27];
+    let mut f: Vec<f64> = vec![5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21];
     let (_, yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
     yield_rate
 }
@@ -35,7 +35,7 @@ pub fn one_12q_trial(chip: &chip_info::ChipInfo) -> f64 {
     }
     // pre defined frequency allocation
     let mut f: Vec<f64> = vec![
-        5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07,
+        5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34,
     ];
     let (_, yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
     yield_rate
@@ -49,8 +49,8 @@ pub fn one_17q_trial(chip: &chip_info::ChipInfo) -> f64 {
     }
     // pre defined frequency allocation
     let mut f: Vec<f64> = vec![
-        5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27,
-        5.00,
+        5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14,
+        5.21, 5.28,
     ];
     let (_, yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
     yield_rate
@@ -64,8 +64,8 @@ pub fn one_25q_trial(chip: &chip_info::ChipInfo) -> f64 {
     }
     // pre defined frequency allocation
     let mut f: Vec<f64> = vec![
-        5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27,
-        5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.00,
+        5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14,
+        5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07,
     ];
     let (_, yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
     yield_rate
@@ -79,8 +79,8 @@ pub fn one_30q_trial(chip: &chip_info::ChipInfo) -> f64 {
     }
     // pre defined frequency allocation
     let mut f: Vec<f64> = vec![
-        5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.27,
-        5.00, 5.07, 5.13, 5.20, 5.27, 5.00, 5.07, 5.13, 5.20, 5.00, 5.07, 5.13, 5.20, 5.27, 5.00,
+        5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14,
+        5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34, 5.00, 5.07, 5.14, 5.21, 5.28, 5.34,
     ];
     let (_, yield_rate) = simulation::complete_yield_simulation(chip, chip.sigma, &f);
     yield_rate
