@@ -19,7 +19,7 @@ for node in G.nodes():
     else:
         colorMap.append('green')
 pos = {0:(2,0),1:(3,0),2:(0,1),3:(1,1),4:(2,1),5:(3,1),6:(0,2),7:(1,2),8:(2,2),9:(3,2),10:(4,2),11:(1,3),12:(2,3),13:(3,3),14:(4,3),15:(1,4),16:(2,4)}
-nx.draw(G, pos=pos, with_labels=True, node_size=475,
+nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
         width=2, edge_color="black", node_color=colorMap)
 ax2.set_title("SEG1")
 
@@ -37,7 +37,7 @@ for node in G.nodes():
         colorMap.append('cyan')
     else:
         colorMap.append('green')
-nx.draw(G, pos=pos, with_labels=True, node_size=475,
+nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
         width=2, edge_color="black", node_color=colorMap)
 ax1.set_title("SEG2")
 
@@ -55,7 +55,7 @@ for node in G.nodes():
         colorMap.append('cyan')
     else:
         colorMap.append('green')
-nx.draw(G, pos=pos, with_labels=True, node_size=475,
+nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
         width=2, edge_color="black", node_color=colorMap)
 ax3.set_title("SEG3")
 
@@ -73,7 +73,7 @@ for node in G.nodes():
         colorMap.append('cyan')
     else:
         colorMap.append('green')
-nx.draw(G, pos=pos, with_labels=True, node_size=475,
+nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
         width=2, edge_color="black", node_color=colorMap)
 ax4.set_title("SEG4")
 
