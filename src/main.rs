@@ -1,3 +1,4 @@
+#![doc(html_root_url = "https://franklee26.github.io/YieldSimRust/")]
 /// Annealing algorithms
 pub mod annealer;
 /// Chip implementations
