@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 fig = plt.figure()
+plt.rcParams["font.size"] = "18"
 
 # 6
 ax1 = fig.add_subplot(231)
@@ -18,7 +19,7 @@ for node in G.nodes():
         else:
                 colorMap.append('cyan')
 nx.draw(G, pos={0:(0,0),1:(0,1),2:(0,2),3:(1,0),4:(1,1),5:(1,2)}, with_labels=True, node_size=1000,
-        width=2, edge_color="black", node_color=colorMap, font_size = 15)
+        width=2, edge_color="black", node_color=colorMap, font_size = 17)
 ax1.set_title("6q")
 
 # 10
@@ -35,8 +36,8 @@ for node in G.nodes():
         else:
                 colorMap.append('cyan')
 pos = {0: (0,0), 1: (0,1), 2:(0,2), 3:(0,3), 4:(0,4), 5:(0,5), 6:(0,6), 7:(0,7), 8:(0,8), 9:(0,9)}
-nx.draw(G, pos=pos, with_labels=True, node_size=1000,
-        width=2, edge_color="black", node_color=colorMap, font_size = 15)
+nx.draw(G, pos=pos, with_labels=True, node_size=1300,
+        width=2, edge_color="black", node_color=colorMap, font_size = 17)
 ax2.set_title("10q")
 
 # 12
@@ -53,8 +54,8 @@ for node in G.nodes():
         else:
                 colorMap.append('cyan')
 pos = {0:(0,1),1:(0,2),2:(0,3),3:(1,0),4:(1,1),5:(1,2),6:(1,3),7:(2,1),8:(2,2),9:(3,0),10:(3,1),11:(3,2)}
-nx.draw(G, pos=pos, with_labels=True, node_size=1000,
-        width=2, edge_color="black", node_color=colorMap, font_size = 15)
+nx.draw(G, pos=pos, with_labels=True, node_size=1300,
+        width=2, edge_color="black", node_color=colorMap, font_size = 17)
 ax3.set_title("12q")
 
 # 17
@@ -73,8 +74,8 @@ for node in G.nodes():
         else:
                 colorMap.append('green')
 pos = {0:(2,0),1:(3,0),2:(0,1),3:(1,1),4:(2,1),5:(3,1),6:(0,2),7:(1,2),8:(2,2),9:(3,2),10:(4,2),11:(1,3),12:(2,3),13:(3,3),14:(4,3),15:(1,4),16:(2,4)}
-nx.draw(G, pos=pos, with_labels=True, node_size=1000,
-        width=2, edge_color="black", node_color=colorMap, font_size = 15)
+nx.draw(G, pos=pos, with_labels=True, node_size=1300,
+        width=2, edge_color="black", node_color=colorMap, font_size = 17)
 ax4.set_title("17q")
 
 # 25
@@ -94,8 +95,8 @@ for node in G.nodes():
         else:
                 colorMap.append('green')
 pos = {0:(1,1),1:(1,2),2:(1,3),3:(1,4),4:(2,0),5:(2,1),6:(2,2),7:(2,3),8:(2,4),9:(2,5),10:(3,1),11:(3,2),12:(3,3),13:(3,4),14:(4,0),15:(4,1),16:(4,2),17:(4,3),18:(5,2),19:(5,3),20:(5,4),21:(5,5),22:(0,2),23:(0,3),24:(0,4)}
-nx.draw(G, pos=pos, with_labels=True, node_size=1000,
-        width=2, edge_color="black", node_color=colorMap, font_size = 15)
+nx.draw(G, pos=pos, with_labels=True, node_size=1300,
+        width=2, edge_color="black", node_color=colorMap, font_size = 17)
 ax5.set_title("25q")
 
 # 30
@@ -117,8 +118,8 @@ for node in G.nodes():
         else:
                 colorMap.append('green')
 pos = {0:(0,1),1:(0,2),2:(0,3),3:(0,4),4:(0,5),5:(1,0),6:(1,1),7:(1,2),8:(1,3),9:(1,4),10:(2,2),11:(2,3),12:(2,4),13:(2,5),14:(3,1),15:(3,2),16:(3,3),17:(3,4),18:(4,0),19:(4,1),20:(4,2),21:(4,3),22:(4,4),23:(4,5),24:(5,0),25:(5,1),26:(5,2),27:(5,3),28:(6,3),29:(6,4)}
-nx.draw(G, pos=pos, with_labels=True, node_size=1000,
-        width=2, edge_color="black", node_color=colorMap, font_size = 15)
+nx.draw(G, pos=pos, with_labels=True, node_size=1300,
+        width=2, edge_color="black", node_color=colorMap, font_size = 17)
 ax6.set_title("30q")
 
 plt.show()

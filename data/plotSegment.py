@@ -42,9 +42,10 @@ if __name__ == "__main__":
         meanIterationsSEG4, meanYieldsSEG4))
 
     plt.figure(1)
+    plt.rcParams["font.size"] = "17"
 
     plt.title(
-        "SSA Yield rate performance against different segmentations on IBM17Q2B (100 trials)")
+        "SSA Yield rate performance against different segmentations on IBM17Q2B")
     plt.xlabel("Iterations [#]")
     plt.ylabel("Yield rate [%]")
 

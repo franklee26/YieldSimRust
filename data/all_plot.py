@@ -15,7 +15,7 @@ def readFromFile(filename):
 
 if __name__ == "__main__":
     fig = plt.figure()
-
+    plt.rcParams["font.size"] = "14"
     # 6 qubits
     ax1 = fig.add_subplot(231)
     iterationsSEG1, yieldsSEG1 = readFromFile("300_trials_6_seg.txt")

@@ -12,17 +12,20 @@ x = np.arange(len(labels))  # the label locations
 width = 0.25  # the width of the bars
 
 fig, ax = plt.subplots()
+plt.rcParams["font.size"] = "18"
 rects1 = ax.bar(x - width/2, segmented, width, label='SSA')
 #rects2 = ax.bar(x + 1*width/3, brute, width, label='brute force')
 rects3 = ax.bar(x + width/2, standard, width, label='SA')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel('CPU Time [s]')
-ax.set_xlabel('Chip')
+ax.set_ylabel('CPU Time [s]', fontsize=18)
+ax.set_xlabel('Chip', fontsize=18)
 ax.set_title(
     'Average CPU time of annealing algorithms per simulation (10,000 trials)')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
+ax.xaxis.set_tick_params(labelsize=18)
+ax.yaxis.set_tick_params(labelsize=18)
 ax.legend()
 
 
@@ -40,6 +43,5 @@ def autolabel(rects):
 autolabel(rects1)
 autolabel(rects3)
 
-fig.tight_layout()
-
+# fig.tight_layout()
 plt.show()

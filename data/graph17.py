@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 fig = plt.figure()
+plt.rcParams["font.size"] = "18"
 
 ax2 = fig.add_subplot(221)
 theGraph = [(2, 6), (3, 7), (7, 11), (11, 15), (0, 4), (4, 8), (8, 12), (12, 16), (1, 5), (5, 9), (9, 13), (10, 14),
@@ -19,7 +20,7 @@ for node in G.nodes():
     else:
         colorMap.append('green')
 pos = {0:(2,0),1:(3,0),2:(0,1),3:(1,1),4:(2,1),5:(3,1),6:(0,2),7:(1,2),8:(2,2),9:(3,2),10:(4,2),11:(1,3),12:(2,3),13:(3,3),14:(4,3),15:(1,4),16:(2,4)}
-nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
+nx.draw(G, pos=pos, with_labels=True, node_size=1300, font_size = 17,
         width=2, edge_color="black", node_color=colorMap)
 ax2.set_title("SEG1")
 
@@ -37,7 +38,7 @@ for node in G.nodes():
         colorMap.append('cyan')
     else:
         colorMap.append('green')
-nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
+nx.draw(G, pos=pos, with_labels=True, node_size=1300, font_size = 17,
         width=2, edge_color="black", node_color=colorMap)
 ax1.set_title("SEG2")
 
@@ -55,7 +56,7 @@ for node in G.nodes():
         colorMap.append('cyan')
     else:
         colorMap.append('green')
-nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
+nx.draw(G, pos=pos, with_labels=True, node_size=1300, font_size = 17,
         width=2, edge_color="black", node_color=colorMap)
 ax3.set_title("SEG3")
 
@@ -73,7 +74,7 @@ for node in G.nodes():
         colorMap.append('cyan')
     else:
         colorMap.append('green')
-nx.draw(G, pos=pos, with_labels=True, node_size=1000, font_size = 15,
+nx.draw(G, pos=pos, with_labels=True, node_size=1300, font_size = 17,
         width=2, edge_color="black", node_color=colorMap)
 ax4.set_title("SEG4")
 
