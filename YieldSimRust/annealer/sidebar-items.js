@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["anneal","Novel annealing algorithms"],["base_line","IBM's provided frequency-selection algorithms"],["brute_force","Brute force algorithms"]]});

@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/main.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>main.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../YieldSimRust/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+</pre><div class="example-wrap"><pre class="rust ">
+<span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;https://franklee26.github.io/YieldSimRust/&quot;</span>)]</span>
+<span class="doccomment">/// Annealing algorithms</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">annealer</span>;
+<span class="doccomment">/// Chip implementations</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">chip_info</span>;
+<span class="doccomment">/// Transition probability distributions</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">distribution</span>;
+<span class="doccomment">/// Helping methods</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">helper</span>;
+<span class="doccomment">/// Parsing .chip files</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">populate</span>;
+<span class="doccomment">/// Yield rate simulation algorithm</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">simulation</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="comment">/*
+    Build a chip object. Initialised parameters do not really matter,
+    as long as they are empty
+    */</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">IBM17Q2B</span>: <span class="ident">chip_info</span>::<span class="ident">ChipInfo</span> <span class="op">=</span> <span class="ident">chip_info</span>::<span class="ident">ChipInfo</span>::<span class="ident">new</span>(
+        <span class="number">0</span>,
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="macro">vec</span><span class="macro">!</span>[],
+        <span class="number">0.0</span>,
+    );
+
+    <span class="comment">/*
+    Populate this chip object through the chip file. Note, do not add
+    the chip/ directory
+    */</span>
+    <span class="ident">IBM17Q2B</span>.<span class="ident">populate_from_file</span>(<span class="string">&quot;30q_bus2.chip&quot;</span>);
+    <span class="comment">// checkup</span>
+    <span class="comment">//IBM17Q2B.print_details();</span>
+
+    <span class="comment">/*
+    Now that we have an f that (hopefully) has a yield_rate &gt; 0, we can
+    begin annealing. We can choose a standard annealing process or we can
+    choose the segmented approach:
+
+    Annealer::anneal::random(_chip, _frequency, _number_iterations, _threshold) -&gt; (i64,f64);
+    Annealer::anneal::standard(_chip, _frequency, _number_iterations, _threshold) -&gt; (i64,f64);
+    Annealer::anneal::segmented(_chip, _frequency, _number_iterations, _threshold, _segments) -&gt; (i64,f64);
+
+    NOTE: need to pass the segments for the segmented annealer (default is THREE segments)
+    RETURNS: tuple (final_iter_number, final_yield_number)
+    */</span>
+
+    <span class="comment">/* here are my segments
+    let segments : Vec&lt;Vec&lt;usize&gt;&gt; = vec![vec![0,1,2,3,4,5],vec![6,7,8,9,10,11],vec![12,13,14,15,16]];
+    let segments2: Vec&lt;Vec&lt;usize&gt;&gt; = vec![
+        vec![0, 1, 4, 5, 8, 9],
+        vec![2, 3, 6, 7, 11, 15],
+        vec![10, 12, 13, 14, 16],
+    ];
+    let segments3 : Vec&lt;Vec&lt;usize&gt;&gt; = vec![vec![0,1,5,10,14],vec![4,8,7,9,12,13],vec![2,3,6,11,15,16]];
+    let segments4 : Vec&lt;Vec&lt;usize&gt;&gt; = vec![vec![0,2,8,10,13,16],vec![1,4,7,9,11,14],vec![3,5,6,12,15]];
+    let temp_seg: Vec&lt;Vec&lt;usize&gt;&gt; = vec![
+        vec![0, 1, 2, 5, 6, 7],
+        vec![3, 4, 8, 9, 12, 13],
+        vec![10, 11, 14, 15, 16, 17],
+        vec![21, 22, 23, 27, 28, 29],
+        vec![18, 19, 20, 24, 25, 26],
+    ];
+
+    let bigger_seg: Vec&lt;Vec&lt;usize&gt;&gt; = vec![
+        vec![0, 1, 2, 5, 6, 7],
+        vec![3, 4, 9, 12, 13, 17],
+        vec![8, 10, 11, 14, 15, 16],
+        vec![18, 19, 20, 24, 25, 26],
+        vec![21, 22, 23, 27, 28, 29],
+    ];
+
+    let chain_seg: Vec&lt;Vec&lt;usize&gt;&gt; = vec![
+        vec![0, 1, 2, 3, 4, 28],
+        vec![5, 24, 7, 8, 9, 10],
+        vec![23, 12, 13, 21, 15, 16],
+        vec![17, 19, 20, 14, 22, 1],
+        vec![18, 6, 25, 26, 27, 29],
+    ];
+    */</span>
+
+    <span class="comment">// let seg_25: Vec&lt;Vec&lt;usize&gt;&gt; = vec![</span>
+    <span class="comment">//     vec![2, 3, 8, 9, 23, 24, 22],</span>
+    <span class="comment">//     vec![0, 1, 4, 5, 6, 10, 15],</span>
+    <span class="comment">//     vec![11, 14, 16, 18, 21, 10],</span>
+    <span class="comment">//     vec![7, 12, 13, 17, 19, 20, 8, 9],</span>
+    <span class="comment">// ]</span>
+    <span class="comment">// I&#39;m going to run 100 trials</span>
+    <span class="comment">// let mut iterations: Vec&lt;i64&gt; = vec![];</span>
+    <span class="comment">// let mut the_yields: Vec&lt;f64&gt; = vec![];</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">yield_sum</span>: <span class="ident">f64</span> <span class="op">=</span> <span class="number">0.0</span>;
+    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">100</span> {
+        <span class="comment">//let mut f: Vec&lt;f64&gt; = helper::global_hunter(&amp;IBM17Q2B, 10);</span>
+        <span class="comment">//let (iter_number, yields) = Annealer::segmented(&amp;IBM17Q2B, &amp;mut f, 280, 0.1, &amp;seg_25);</span>
+        <span class="comment">//let (iter_number, yields) = Annealer::random(&amp;IBM17Q2B, &amp;mut f, 280, 0.1);</span>
+        <span class="comment">//let (iter_number, yields) = annealer::anneal::standard(&amp;IBM17Q2B, &amp;mut f, 280, 0.1);</span>
+        <span class="comment">// iterations.push(iter_number);</span>
+        <span class="comment">// the_yields.push(yields);</span>
+        <span class="comment">//println!(&quot;{}: {} {}&quot;, i, iter_number, yields);</span>
+        <span class="kw">let</span> <span class="ident">yield_temp</span> <span class="op">=</span> <span class="ident">annealer</span>::<span class="ident">base_line</span>::<span class="ident">one_30q_trial</span>(<span class="kw-2">&amp;</span><span class="ident">IBM17Q2B</span>);
+        <span class="ident">yield_sum</span> <span class="op">+</span><span class="op">=</span> <span class="ident">yield_temp</span>;
+        <span class="comment">//println!(&quot;{}&quot;, yield_temp);</span>
+    }
+    <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{:.3} average.&quot;</span>, <span class="ident">yield_sum</span> <span class="op">/</span> <span class="number">100.0</span>)
+    <span class="comment">// write this data to file for analysis</span>
+    <span class="comment">//helper::write_to_file_data(&amp;iterations, &amp;the_yields, &quot;100_trials_seg25_3.txt&quot;);</span>
+}
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "YieldSimRust";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

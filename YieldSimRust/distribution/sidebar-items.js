@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["boltzmann_custom",""],["exp_fermi_dirac_custom",""],["exp_fermi_dirac_harsh",""],["exp_fermi_dirac_lenient",""],["exp_fermi_dirac_standard",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["annealer","Annealing algorithms"],["chip_info","Chip implementations"],["distribution","Transition probability distributions"],["helper","Helping methods"],["populate","Parsing .chip files"],["simulation","Yield rate simulation algorithm"]]});
